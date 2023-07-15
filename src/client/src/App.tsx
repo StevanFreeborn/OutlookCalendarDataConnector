@@ -1,22 +1,20 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import AuthenticatedRoute from './components/AuthenticatedRoute.tsx';
+import Home from './pages/Home.tsx';
 
 function App() {
-  function callAPI() {
-    fetch('http://localhost:8001')
-      .then(res => res.text())
-      .then(text => console.log(text))
-      .catch(err => console.log(err));
-  }
-
   return (
-    <div>
-      <button
-        onClick={() => callAPI()}
-        type='button'
-      >
-        Call API
-      </button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<AuthenticatedRoute />}>
+          <Route
+            path='/'
+            element={<Home />}
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

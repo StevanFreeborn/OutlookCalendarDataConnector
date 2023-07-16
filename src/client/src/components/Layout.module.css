@@ -4,12 +4,9 @@
   height: 100%;
 }
 
-.sidebarContainer {
-  flex: 25%
-}
-
 .main {
-  flex: 75%;
+  flex: 1;
+  padding: 1rem;
 }
 
 .show {

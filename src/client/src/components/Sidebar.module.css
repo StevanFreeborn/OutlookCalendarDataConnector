@@ -1,0 +1,47 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 200px;
+  gap: 1rem;
+}
+
+.sidebarCollapsed {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.sidebar,
+.sidebarCollapsed {
+  background: #020024;
+  background: linear-gradient(180deg, #020024 0%, #090979 35%, #00d4ff 100%);
+}
+
+.buttonContainer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.sidebarCollapsed .buttonContainer {
+  padding: 1rem;
+}
+
+.buttonContainer button {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.navCollapsed {
+  display: none;
+}
+
+.navItems {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: #ffffff;
+  font-size: 1.5rem;
+}

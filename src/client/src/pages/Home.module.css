@@ -1,0 +1,13 @@
+.addSyncLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  color: #ffffff;
+  background-color: #090979;
+}
+
+.addSyncLink:hover {
+  background-color: #080861;
+}

@@ -1,0 +1,95 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  gap: 0.5rem;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardStatusContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cardName {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.enabled,
+.disabled,
+.success,
+.failure {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  color: #ffffff;
+  font-size: 0.85rem;
+}
+
+.enabled,
+.success {
+  background-color: #008000;
+}
+
+.disabled,
+.failure {
+  background-color: #ff0000;
+}
+
+.enabled::after {
+  content: 'Enabled'
+}
+
+.disabled::after {
+  content: 'Disabled'
+}
+
+.actionContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logLink,
+.editLink {
+  font-size: 1.25rem;
+}
+
+.logLink:hover,
+.editLink:hover {
+  color: #080861;
+}
+
+.cardBody {
+  flex: 1;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.lastRunContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.success {
+  content: 'Succeeded';
+}
+
+.failure {
+  content: 'Failed';
+}

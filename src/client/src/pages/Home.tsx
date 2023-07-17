@@ -15,6 +15,8 @@ export default function Home() {
       enabled: true,
       lastRun: '2023-07-16T15:32:10.902Z',
       lastRunResult: 'Failed',
+      onspringApiKey: 'test',
+      onspringApp: 'test',
     },
     {
       id: '6151c0f9f21ba63df8a5c12b',
@@ -24,6 +26,8 @@ export default function Home() {
       enabled: false,
       lastRun: '',
       lastRunResult: undefined,
+      onspringApiKey: 'test',
+      onspringApp: 'test',
     },
     {
       id: '6151c0f9f21ba63df8a5c12c',
@@ -33,6 +37,8 @@ export default function Home() {
       enabled: true,
       lastRun: '2023-07-10T15:32:10.902Z',
       lastRunResult: 'Succeeded',
+      onspringApiKey: 'made up',
+      onspringApp: '1',
     },
   ];
 

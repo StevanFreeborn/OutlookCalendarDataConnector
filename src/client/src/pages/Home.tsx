@@ -17,6 +17,10 @@ export default function Home() {
       lastRunResult: 'Failed',
       onspringApiKey: 'test',
       onspringApp: 'test',
+      msClientId: '',
+      msClientSecret: '',
+      msUser: '',
+      msUserCalendar: '',
     },
     {
       id: '6151c0f9f21ba63df8a5c12b',
@@ -28,6 +32,10 @@ export default function Home() {
       lastRunResult: undefined,
       onspringApiKey: 'test',
       onspringApp: 'test',
+      msClientId: '',
+      msClientSecret: '',
+      msUser: '',
+      msUserCalendar: '',
     },
     {
       id: '6151c0f9f21ba63df8a5c12c',
@@ -39,6 +47,10 @@ export default function Home() {
       lastRunResult: 'Succeeded',
       onspringApiKey: 'made up',
       onspringApp: '1',
+      msClientId: '',
+      msClientSecret: '',
+      msUser: '',
+      msUserCalendar: '',
     },
   ];
 

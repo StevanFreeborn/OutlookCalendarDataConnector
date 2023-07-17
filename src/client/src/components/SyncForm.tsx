@@ -1,4 +1,4 @@
-import { HTMLInputTypeAttribute, useReducer } from 'react';
+import { ChangeEvent, useReducer } from 'react';
 import { Sync } from '../types/Sync.ts';
 import styles from './SyncForm.module.css';
 import Toggle from './Toggle.tsx';
@@ -9,18 +9,15 @@ export default function SyncForm({ sync }: { sync?: Sync }) {
   type FormAction = {
     type: 'updateValue';
     payload: {
-      type: HTMLInputTypeAttribute;
       name: string;
-      value: string;
+      value: string | boolean;
     };
   };
 
   function formReducer(state: Sync, action: FormAction) {
     switch (action.type) {
-      case 'updateValue': {
-        const value = action.payload.value;
-        return { ...state, [action.payload.name]: value };
-      }
+      case 'updateValue':
+        return { ...state, [action.payload.name]: action.payload.value };
       default:
         return state;
     }
@@ -28,10 +25,41 @@ export default function SyncForm({ sync }: { sync?: Sync }) {
 
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
+  function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
+    let value: string | boolean = e.target.value;
+
+    if (e.target.type == 'checkbox') {
+      value = e.target.checked;
+    }
+
+    dispatch({
+      type: 'updateValue',
+      payload: { name: e.target.name, value: value },
+    });
+  }
+
   return (
-    <div>
+    <div className={styles.formContainer}>
       <h1>Add Sync</h1>
-      <form>
+      <form className={styles.syncForm}>
+        <div className={styles.formRow}>
+          <div className={styles.formGroup}>
+            <label
+              className={styles.formLabel}
+              htmlFor='enabled'
+            >
+              Status
+            </label>
+            <div className={styles.toggleContainer}>
+              <Toggle
+                id='enabled'
+                name='enabled'
+                checked={formState.enabled}
+                onChangeHandler={handleInputChange}
+              />
+            </div>
+          </div>
+        </div>
         <div className={styles.formRow}>
           <div className={styles.formGroup}>
             <label
@@ -46,62 +74,112 @@ export default function SyncForm({ sync }: { sync?: Sync }) {
               id='onspringApiKey'
               value={formState.onspringApiKey}
               className={styles.formControl}
-              onChange={e =>
-                dispatch({
-                  type: 'updateValue',
-                  payload: {
-                    type: e.target.type,
-                    name: e.target.name,
-                    value: e.target.value,
-                  },
-                })
-              }
+              onChange={handleInputChange}
             />
           </div>
           <div className={styles.formGroup}>
-            <label htmlFor='onspringApp'>Onspring App</label>
+            <label
+              htmlFor='onspringApp'
+              className={styles.formLabel}
+            >
+              Onspring App
+            </label>
             <input
               name='onspringApp'
               id='onspringApp'
               value={formState.onspringApp}
               className={styles.formControl}
-              onChange={e =>
-                dispatch({
-                  type: 'updateValue',
-                  payload: {
-                    type: e.target.type,
-                    name: e.target.name,
-                    value: e.target.value,
-                  },
-                })
-              }
+              onChange={handleInputChange}
               list='onspringApps'
             />
-            {/* Need to populate this list dynamically when onspring api is changed */}
+            {/* TODO: Need to populate this list dynamically when onspring api is changed */}
             <datalist id='onspringApps'>
               <option value='Appointments' />
             </datalist>
           </div>
+        </div>
+        <div className={styles.formRow}>
           <div className={styles.formGroup}>
-            <label htmlFor='enabled'></label>
-            <Toggle
-              id='enabled'
-              name='enabled'
-              checked={formState.enabled}
-              onChangeHandler={e =>
-                dispatch({
-                  type: 'updateValue',
-                  payload: {
-                    type: e.target.type,
-                    name: e.target.name,
-                    value: e.target.value,
-                  },
-                })
-              }
+            <label
+              className={styles.formLabel}
+              htmlFor='msClientId'
+            >
+              Microsoft Client Id
+            </label>
+            <input
+              type='text'
+              name='msClientId'
+              id='msClientId'
+              value={formState.msClientId}
+              className={styles.formControl}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label
+              className={styles.formLabel}
+              htmlFor='msClientSecret'
+            >
+              Microsoft Client Secret
+            </label>
+            <input
+              type='text'
+              name='msClientSecret'
+              id='msClientSecret'
+              value={formState.msClientSecret}
+              className={styles.formControl}
+              onChange={handleInputChange}
             />
           </div>
         </div>
-        <div></div>
+        <div className={styles.formRow}>
+          <div className={styles.formGroup}>
+            <label
+              htmlFor='msUser'
+              className={styles.formLabel}
+            >
+              Microsoft User
+            </label>
+            <input
+              name='msUser'
+              id='msUser'
+              value={formState.msUser}
+              className={styles.formControl}
+              onChange={handleInputChange}
+              list='msUsers'
+            />
+            {/* TODO: Need to populate this list dynamically when microsoft client id or client secret is changed */}
+            <datalist id='msUsers'>
+              <option value='Stevan Freeborn' />
+            </datalist>
+          </div>
+          <div className={styles.formGroup}>
+            <label
+              htmlFor='msUserCalendar'
+              className={styles.formLabel}
+            >
+              User Calendar
+            </label>
+            <input
+              name='msUserCalendar'
+              id='msUserCalendar'
+              value={formState.msUser}
+              className={styles.formControl}
+              onChange={handleInputChange}
+              list='msUserCalendars'
+            />
+            {/* TODO: Need to populate this list dynamically when microsoft user is changed */}
+            <datalist id='msUserCalendars'>
+              <option value='Default' />
+            </datalist>
+          </div>
+        </div>
+        <div className={styles.fieldMappingsRow}>
+          <div className={styles.fieldMappingGroup}>
+            <div className={styles.formLabel}>Field Mappings</div>
+            <div className={styles.fieldMappingContainer}></div>
+          </div>
+        </div>
       </form>
     </div>
   );

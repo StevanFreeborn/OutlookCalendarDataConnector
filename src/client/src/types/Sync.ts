@@ -8,6 +8,10 @@ export class Sync {
   lastRunResult?: 'Succeeded' | 'Failed';
   onspringApiKey: string;
   onspringApp: string;
+  msClientId: string;
+  msClientSecret: string;
+  msUser: string;
+  msUserCalendar: string;
 
   constructor() {
     this.id = '';
@@ -17,5 +21,9 @@ export class Sync {
     this.enabled = false;
     this.onspringApiKey = '';
     this.onspringApp = '';
+    this.msClientId = '';
+    this.msClientSecret = '';
+    this.msUser = '';
+    this.msUserCalendar = '';
   }
 }

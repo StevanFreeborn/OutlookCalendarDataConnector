@@ -38,8 +38,8 @@
 .slider:before {
   position: absolute;
   content: "";
-  height: 24px;
-  width: 24px;
+  height: 26px;
+  width: 26px;
   left: 1px;
   bottom: 1px;
   -webkit-transition: .4s;

@@ -59,3 +59,27 @@
   border: 1px solid slategray;
   border-radius: 0.25rem;
 }
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem
+}
+
+.closeLink,
+.saveButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+}
+
+.saveButton {
+  color: #ffffff;
+  background-color: #090979;
+}
+
+.saveButton:hover {
+  background-color: #080861;
+}

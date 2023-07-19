@@ -1,9 +1,22 @@
-import { ChangeEvent, useReducer } from 'react';
+import {
+  ChangeEvent,
+  FocusEvent,
+  FormEvent,
+  useReducer,
+  useState,
+} from 'react';
+import { Link } from 'react-router-dom';
 import { Sync } from '../types/Sync.ts';
 import styles from './SyncForm.module.css';
 import Toggle from './Toggle.tsx';
 
+type App = {
+  id: string;
+  name: string;
+};
+
 export default function SyncForm({ sync }: { sync?: Sync }) {
+  const [apps, setApps] = useState<App[]>([]);
   const initialFormState = sync ? sync : new Sync();
 
   type FormAction = {
@@ -38,10 +51,38 @@ export default function SyncForm({ sync }: { sync?: Sync }) {
     });
   }
 
+  function handleOnspringApiKeyBlur(e: FocusEvent<HTMLInputElement>) {
+    fetch(
+      `${import.meta.env.VITE_API_BASE_URL as string}/api/apps?apiKey=${
+        e.target.value
+      }`
+    )
+      .then(res => res.json())
+      .then(apps => setApps(apps as App[]))
+      .catch(err => console.error(err));
+    e;
+  }
+
+  function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    fetch(`${import.meta.env.VITE_API_BASE_URL as string}/api/syncs`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formState),
+    })
+      .then(res => console.log(res.status))
+      .catch(err => console.log(err));
+  }
+
   return (
     <div className={styles.formContainer}>
       <h1>Add Sync</h1>
-      <form className={styles.syncForm}>
+      <form
+        className={styles.syncForm}
+        onSubmit={handleFormSubmit}
+      >
         <div className={styles.formRow}>
           <div className={styles.formGroup}>
             <label
@@ -75,6 +116,7 @@ export default function SyncForm({ sync }: { sync?: Sync }) {
               value={formState.onspringApiKey}
               className={styles.formControl}
               onChange={handleInputChange}
+              onBlur={handleOnspringApiKeyBlur}
             />
           </div>
           <div className={styles.formGroup}>
@@ -94,7 +136,12 @@ export default function SyncForm({ sync }: { sync?: Sync }) {
             />
             {/* TODO: Need to populate this list dynamically when onspring api is changed */}
             <datalist id='onspringApps'>
-              <option value='Appointments' />
+              {apps.map(app => (
+                <option
+                  key={app.id}
+                  value={app.name}
+                />
+              ))}
             </datalist>
           </div>
         </div>
@@ -179,6 +226,20 @@ export default function SyncForm({ sync }: { sync?: Sync }) {
             <div className={styles.formLabel}>Field Mappings</div>
             <div className={styles.fieldMappingContainer}></div>
           </div>
+        </div>
+        <div className={styles.buttonContainer}>
+          <Link
+            className={styles.closeLink}
+            to='/'
+          >
+            {sync ? 'Close' : 'Cancel'}
+          </Link>
+          <button
+            className={styles.saveButton}
+            type='submit'
+          >
+            Save
+          </button>
         </div>
       </form>
     </div>

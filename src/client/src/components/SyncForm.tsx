@@ -15,6 +15,10 @@ type App = {
   name: string;
 };
 
+function isNullEmptyOrWhitespace(str: string | null) {
+  return !str || str.trim() === '';
+}
+
 export default function SyncForm({ sync }: { sync?: Sync }) {
   const [apps, setApps] = useState<App[]>([]);
   const initialFormState = sync ? sync : new Sync();
@@ -52,6 +56,16 @@ export default function SyncForm({ sync }: { sync?: Sync }) {
   }
 
   function handleOnspringApiKeyBlur(e: FocusEvent<HTMLInputElement>) {
+    dispatch({
+      type: 'updateValue',
+      payload: { name: 'onspringApp', value: '' },
+    });
+    const value = e.target.value;
+
+    if (isNullEmptyOrWhitespace(value)) {
+      return;
+    }
+
     fetch(
       `${import.meta.env.VITE_API_BASE_URL as string}/api/apps?apiKey=${
         e.target.value
@@ -60,7 +74,6 @@ export default function SyncForm({ sync }: { sync?: Sync }) {
       .then(res => res.json())
       .then(apps => setApps(apps as App[]))
       .catch(err => console.error(err));
-    e;
   }
 
   function handleFormSubmit(e: FormEvent<HTMLFormElement>) {

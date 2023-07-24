@@ -1,6 +1,6 @@
 namespace Server.API.Interfaces;
 
-public interface IOnspringService
+interface IOnspringService
 {
   Task<List<App>> GetApps(string apiKey);
 }

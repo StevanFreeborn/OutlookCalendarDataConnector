@@ -1,6 +1,6 @@
 namespace Server.API.Interfaces;
 
-public interface IOnspringClientFactory
+interface IOnspringClientFactory
 {
   IOnspringClient Create(string apiKey);
 }

@@ -1,6 +1,6 @@
 namespace Server.API.Factories;
 
-public class OnspringClientFactory : IOnspringClientFactory
+class OnspringClientFactory : IOnspringClientFactory
 {
   public IOnspringClient Create(string apiKey)
   {

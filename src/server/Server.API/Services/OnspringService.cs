@@ -1,6 +1,6 @@
 namespace Server.API.Services;
 
-public class OnspringService : IOnspringService
+class OnspringService : IOnspringService
 {
   private readonly IOnspringClientFactory _factory;
   public OnspringService(IOnspringClientFactory factory)
